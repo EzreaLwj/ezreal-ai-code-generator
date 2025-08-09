@@ -1,5 +1,6 @@
 package com.ezreal.ai.code.generator.service;
 
+import com.ezreal.ai.code.generator.model.request.UserRegisterRequest;
 import com.mybatisflex.core.service.IService;
 import com.ezreal.ai.code.generator.model.po.User;
 
@@ -10,4 +11,6 @@ import com.ezreal.ai.code.generator.model.po.User;
  */
 public interface UserService extends IService<User> {
 
+
+    public Long register(UserRegisterRequest userRegisterRequest);
 }

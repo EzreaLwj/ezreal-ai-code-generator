@@ -1,5 +1,8 @@
 package com.ezreal.ai.code.generator.controller;
 
+import com.ezreal.ai.code.generator.enums.ResponseCode;
+import com.ezreal.ai.code.generator.exception.AppException;
+import com.ezreal.ai.code.generator.model.request.UserRegisterRequest;
 import com.mybatisflex.core.paginate.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ezreal.ai.code.generator.model.po.User;
 import com.ezreal.ai.code.generator.service.UserService;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 /**
- *  控制层。
+ * 控制层。
  *
  * @author <a href="https://github.com/EzreaLwj">程序员Ezreal</a>
  */
@@ -25,6 +29,20 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * 注册
+     *
+     * @param request 请求体
+     * @return 用户ID
+     */
+    @PostMapping("register")
+    public Long register(@RequestBody UserRegisterRequest request) {
+        if (request == null) {
+            throw new AppException(ResponseCode.ILLEGAL_PARAMETER.getCode(), "参数为空");
+        }
+        return userService.register(request);
+    }
 
     /**
      * 保存。
