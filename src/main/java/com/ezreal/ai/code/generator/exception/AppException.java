@@ -1,12 +1,14 @@
 package com.ezreal.ai.code.generator.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Ezreal
  * @Date 2025/8/9
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class AppException extends RuntimeException {
     private static final long serialVersionUID = 5317680961212299217L;
 

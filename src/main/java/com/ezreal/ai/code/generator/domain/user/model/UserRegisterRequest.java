@@ -1,4 +1,4 @@
-package com.ezreal.ai.code.generator.model.request;
+package com.ezreal.ai.code.generator.domain.user.model;
 
 import lombok.Data;
 

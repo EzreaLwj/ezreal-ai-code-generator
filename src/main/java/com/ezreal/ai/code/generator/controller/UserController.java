@@ -2,7 +2,7 @@ package com.ezreal.ai.code.generator.controller;
 
 import com.ezreal.ai.code.generator.enums.ResponseCode;
 import com.ezreal.ai.code.generator.exception.AppException;
-import com.ezreal.ai.code.generator.model.request.UserRegisterRequest;
+import com.ezreal.ai.code.generator.domain.user.model.UserRegisterRequest;
 import com.mybatisflex.core.paginate.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ezreal.ai.code.generator.model.po.User;
-import com.ezreal.ai.code.generator.service.UserService;
+import com.ezreal.ai.code.generator.domain.user.service.UserService;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
