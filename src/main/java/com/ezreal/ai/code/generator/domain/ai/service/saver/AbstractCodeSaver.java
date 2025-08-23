@@ -1,0 +1,45 @@
+package com.ezreal.ai.code.generator.domain.ai.service.saver;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
+import com.ezreal.ai.code.generator.domain.ai.model.valobj.CodeGenTypeEnum;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * @author Ezreal
+ * @Date 2025/8/23
+ */
+public abstract class AbstractCodeSaver<T> {
+
+    public static final String FILE_SAVE_ROOT_DIR = System.getProperty("user.dir") + "/tmp/code_output";
+
+    public final File saveCode(T result) {
+
+        // 1.构建唯一文件目录
+        String fileDir = buildFileDir(getCodeGenType());
+
+        // 2.保存文件
+        saveFile(result, fileDir);
+
+        return new File(fileDir);
+    }
+
+    protected abstract void validateInput(T result);
+
+    protected abstract void saveFile(T result, String fileDir);
+
+    protected abstract CodeGenTypeEnum getCodeGenType();
+
+    private String buildFileDir(CodeGenTypeEnum codeGenTypeEnum) {
+        String uniqueName = String.format("%s_%s", codeGenTypeEnum.getValue(), IdUtil.getSnowflakeNextIdStr());
+        return StringUtils.join(FILE_SAVE_ROOT_DIR, File.separator, uniqueName);
+    }
+
+    protected void write2File(String filePath, String fileName, String content) {
+        String fileFullPath = StringUtils.join(filePath, File.separator, fileName);
+        FileUtil.writeString(content, fileFullPath, StandardCharsets.UTF_8);
+    }
+}

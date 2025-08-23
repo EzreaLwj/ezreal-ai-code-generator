@@ -11,8 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import reactor.core.publisher.Flux;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Ezreal
@@ -43,6 +46,15 @@ public class AiGenerateCodeTest {
     public void aiGeneratorFacadeTest() {
         File file = aiCodeGeneratorFacade.generateAndSaveCode("任务记录网站", CodeGenTypeEnum.MULTI_FILE);
         Assertions.assertNotNull(file);
+    }
+
+    @Test
+    public void generateAndSaveCodeStreamTest() {
+        Flux<String> flux = aiCodeGeneratorFacade.generateAndSaveCodeStream("任务记录网站", CodeGenTypeEnum.MULTI_FILE);
+        List<String> block = flux.collectList().block();
+        Assertions.assertNotNull(block);
+        String completeCode = String.join("", block);
+        Assertions.assertNotNull(completeCode);
     }
 
 }
