@@ -18,12 +18,12 @@ public abstract class AbstractCodeSaver<T> {
 
     public final File saveCode(T result) {
 
-        // 1.构建唯一文件目录
+        // 1.检查参数
+        validateInput(result);
+        // 2.构建唯一文件目录
         String fileDir = buildFileDir(getCodeGenType());
-
-        // 2.保存文件
+        // 3.保存文件
         saveFile(result, fileDir);
-
         return new File(fileDir);
     }
 
