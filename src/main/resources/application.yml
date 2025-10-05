@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ezreal_ai_code_generator?characterEncoding=utf-8&serverTimezone=Hongkong&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: ezreal
+    password: 12345678
   profiles:
     active: local
 server:
@@ -14,6 +14,8 @@ server:
 
 # springdoc-openapi项目配置
 springdoc:
+  # 若开启，不使用国际化，可能会导致无法获得@tag和@operation标签的内容
+  disable-i18n: true
   swagger-ui:
     path: /swagger-ui.html
     tags-sorter: alpha

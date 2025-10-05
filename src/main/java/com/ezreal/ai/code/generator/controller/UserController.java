@@ -1,9 +1,16 @@
 package com.ezreal.ai.code.generator.controller;
 
+import com.ezreal.ai.code.generator.common.Response;
+import com.ezreal.ai.code.generator.domain.user.model.UserLoginRequest;
+import com.ezreal.ai.code.generator.domain.user.model.entity.UserLoginEntity;
 import com.ezreal.ai.code.generator.enums.ResponseCode;
 import com.ezreal.ai.code.generator.exception.AppException;
 import com.ezreal.ai.code.generator.domain.user.model.UserRegisterRequest;
+import com.ezreal.ai.code.generator.utils.ResultUtils;
 import com.mybatisflex.core.paginate.Page;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +30,7 @@ import java.util.List;
  *
  * @author <a href="https://github.com/EzreaLwj">程序员Ezreal</a>
  */
+@Tag(name = "用户")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,82 +39,48 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 登陆
+     *
+     * @param request 请求体
+     * @return 用户ID
+     */
+    @PostMapping("login")
+    @Operation(summary = "登陆")
+    public Response<UserLoginEntity> login(@RequestBody UserLoginRequest request, HttpServletRequest httpServletRequest) {
+        if (request == null) {
+            throw new AppException(ResponseCode.ILLEGAL_PARAMETER.getCode(), "参数为空");
+        }
+        UserLoginEntity userLoginEntity = userService.login(request, httpServletRequest);
+        return ResultUtils.success(userLoginEntity);
+    }
+
+    /**
      * 注册
      *
      * @param request 请求体
      * @return 用户ID
      */
     @PostMapping("register")
-    public Long register(@RequestBody UserRegisterRequest request) {
+    @Operation(summary = "注册")
+    public Response<Long> register(@RequestBody UserRegisterRequest request) {
         if (request == null) {
             throw new AppException(ResponseCode.ILLEGAL_PARAMETER.getCode(), "参数为空");
         }
-        return userService.register(request);
+        Long userId = userService.register(request);
+        return ResultUtils.success(userId);
     }
 
     /**
-     * 保存。
+     * 登陆
      *
-     * @param user
-     * @return {@code true} 保存成功，{@code false} 保存失败
+     * @param httpServletRequest 请求体
+     * @return 用户登陆信息
      */
-    @PostMapping("save")
-    public boolean save(@RequestBody User user) {
-        return userService.save(user);
+    @PostMapping("getLoginUser")
+    @Operation(summary = "获取用户登陆信息")
+    public Response<UserLoginEntity> getLoginUser
+    (HttpServletRequest httpServletRequest) {
+        UserLoginEntity userLoginEntity = userService.getLoginUser(httpServletRequest);
+        return ResultUtils.success(userLoginEntity);
     }
-
-    /**
-     * 根据主键删除。
-     *
-     * @param id 主键
-     * @return {@code true} 删除成功，{@code false} 删除失败
-     */
-    @DeleteMapping("remove/{id}")
-    public boolean remove(@PathVariable Long id) {
-        return userService.removeById(id);
-    }
-
-    /**
-     * 根据主键更新。
-     *
-     * @param user
-     * @return {@code true} 更新成功，{@code false} 更新失败
-     */
-    @PutMapping("update")
-    public boolean update(@RequestBody User user) {
-        return userService.updateById(user);
-    }
-
-    /**
-     * 查询所有。
-     *
-     * @return 所有数据
-     */
-    @GetMapping("list")
-    public List<User> list() {
-        return userService.list();
-    }
-
-    /**
-     * 根据主键获取。
-     *
-     * @param id 主键
-     * @return 详情
-     */
-    @GetMapping("getInfo/{id}")
-    public User getInfo(@PathVariable Long id) {
-        return userService.getById(id);
-    }
-
-    /**
-     * 分页查询。
-     *
-     * @param page 分页对象
-     * @return 分页对象
-     */
-    @GetMapping("page")
-    public Page<User> page(Page<User> page) {
-        return userService.page(page);
-    }
-
 }

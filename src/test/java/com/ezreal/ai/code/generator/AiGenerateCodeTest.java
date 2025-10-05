@@ -1,11 +1,11 @@
 package com.ezreal.ai.code.generator;
 
 import cn.hutool.json.JSONUtil;
-import com.ezreal.ai.code.generator.domain.ai.model.HtmlCodeResult;
-import com.ezreal.ai.code.generator.domain.ai.model.MultiFileCodeResult;
-import com.ezreal.ai.code.generator.domain.ai.model.valobj.CodeGenTypeEnum;
-import com.ezreal.ai.code.generator.domain.ai.service.AiCodeGeneratorFacade;
-import com.ezreal.ai.code.generator.domain.ai.service.AiCodeGeneratorService;
+import com.ezreal.ai.code.generator.domain.ai.generate.model.HtmlCodeResult;
+import com.ezreal.ai.code.generator.domain.ai.generate.model.MultiFileCodeResult;
+import com.ezreal.ai.code.generator.enums.CodeGenTypeEnum;
+import com.ezreal.ai.code.generator.domain.ai.generate.service.AiCodeGeneratorFacade;
+import com.ezreal.ai.code.generator.domain.ai.generate.service.AiCodeGeneratorService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +15,6 @@ import reactor.core.publisher.Flux;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Ezreal

@@ -15,6 +15,7 @@ public enum ResponseCode {
     UN_ERROR("0001", "调用失败"),
     ILLEGAL_PARAMETER("0002", "非法参数"),
     SYSTEM_ERROR("0003", "系统异常"),
+    USER_NOT_LOGIN("0004", "用户未登录"),
     ;
 
     ResponseCode(String code, String info) {
