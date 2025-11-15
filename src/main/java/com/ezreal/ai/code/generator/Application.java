@@ -3,9 +3,11 @@ package com.ezreal.ai.code.generator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @MapperScan("com.ezreal.ai.code.generator.mapper")
 @SpringBootApplication
+@EnableTransactionManagement
 public class Application {
 
     public static void main(String[] args) {

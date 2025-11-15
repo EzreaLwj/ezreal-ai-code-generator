@@ -15,13 +15,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public Response<?> businessExceptionHandler(AppException e) {
-        log.error("BusinessException", e);
-        return ResultUtils.error(e.getCode(), e.getMessage());
+        return ResultUtils.error(e.getCode(), e.getInfo());
     }
 
     @ExceptionHandler(RuntimeException.class)
     public Response<?> runtimeExceptionHandler(RuntimeException e) {
-        log.error("RuntimeException", e);
         return ResultUtils.error(ResponseCode.ILLEGAL_PARAMETER, "系统错误");
     }
 }

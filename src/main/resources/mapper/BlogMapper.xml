@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezreal.ai.code.generator.mapper.BlogMapper">
+
+    <update id="increaseThumbCount">
+        update blog set thumbCount = thumbCount + 1 where id = #{blogId}
+    </update>
+    <update id="decreaseThumbCount">
+        update blog set thumbCount = thumbCount - 1 where id = #{blogId} and thumbCount > 0
+    </update>
+</mapper>

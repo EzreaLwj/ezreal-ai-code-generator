@@ -39,7 +39,6 @@ public class AppException extends RuntimeException {
         this.info = message;
         super.initCause(cause);
     }
-
     public AppException(ResponseCode responseCode) {
         this.code = responseCode.getCode();
         this.info = responseCode.getInfo();
